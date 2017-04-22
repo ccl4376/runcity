@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Homepage - {{ block.super }}
+{% endblock title %}
+{% block content %}
+<script>
+function setColor(e, btn, color) {
+  var target = e.target,
+      count = +target.dataset.count;
+
+   target.style.backgroundColor = count === 1 ? "#7FFF00" : '#FFFFFF';
+   target.dataset.count = count === 1 ? 0 : 1;
+}
+</script>
+
+<style>
+table {
+	 position: relative;
+	 left: 100px;
+}
+
+
+</style>
+
+
+{% for post in posts %}
+<table style="width:85%">
+<tr>
+<br>
+
+<td><h2><a href="{% url 'RunHere_detail' slug=post.slug %}">{{ post.name }}</a></h2></td>
+
+<td>創建日: {{ post.created }} </td>
+
+<td>  <img src="{% if post.image %} {{ post.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" height="100" width="100"> </td>
+
+<td>修改日: {{ post.modified }} </td>
+
+
+<td>創建者 : {{ post.user }}</td>
+
+<td>修改者 : {{ post.useredit }}</td>
+
+
+
+
+</tr>
+</table>
+
+{% endfor %}
+{% include "pagination.html" with page=posts %}
+{% endblock content %}

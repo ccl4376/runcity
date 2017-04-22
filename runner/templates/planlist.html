@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Homepage - {{ block.super }}
+{% endblock title %}
+{% block content %}
+<script>
+function setColor(e, btn, color) {
+  var target = e.target,
+      count = +target.dataset.count;
+
+   target.style.backgroundColor = count === 1 ? "#7FFF00" : '#FFFFFF';
+   target.dataset.count = count === 1 ? 0 : 1;
+}
+</script>
+
+<table class="table table-bordered">
+    <tr>
+        <td>產品編號</td><td>產品名稱</td><td>建立日期</td><td>產品圖片</td><td>最後修改日期</td><td>產品說明</td><td>建立者</td><td>修改者</td><td></td>
+    </tr>
+{% for post in planlist %}
+    <tr>
+        <td> {{ post.model_number }} </td>
+        <td><a href="{% url 'thing_detail' slug=post.slug %}">{{ post.name }}</a></td>
+        <td>{{ post.created }} </td>
+        <td>  <img src="{% if post.image %} {{ post.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" height="100" width="100"> </td>
+        <td>{{ post.modified }} </td>
+        <td>{{ post.feature }}</td>
+        <td>{{ post.user }}</td>
+        <td>{{ post.useredit }}</td>
+         {% for cp in post.cataloggroup.all %}
+        <td> {{cp }}</td>
+         {% endfor %}
+
+        <td><a href="{% url 'edit_thing' slug=post.slug %}"><input class="button0 button2"   type="button" id="button" value="編輯" style="color:#fffff0" onclick="setColor(event, 'button', '#101010')"; data-count="1" /><a></td>
+    </tr>
+{% endfor %}
+</table>
+{% include "pagination.html" with page=posts %}
+{% endblock content %}
+

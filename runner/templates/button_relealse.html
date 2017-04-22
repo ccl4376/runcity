@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>edit thing</title>
+
+<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script>
+
+	$(function() {
+		$( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+
+
+	});
+
+	$(
+    function(){
+
+        $('#nowtime').click(function(){
+                  var time = new Date();
+                  $('#time-enter').val(time.toDateString());
+        });
+
+    }
+);
+
+</script>
+<script>
+Date.prototype.yyyymmdd = function() {
+   var yyyy = this.getFullYear().toString();
+   var mm = (this.getMonth()+1).toString(); 
+   var dd  = this.getDate().toString();
+   return yyyy +"-"+ (mm[1]?mm:"0"+mm[0])+"-" + (dd[1]?dd:"0"+dd[0]);
+  };
+
+d = new Date();
+d.yyyymmdd();
+
+  </script>
+
+
+</head>
+<body>
+
+	</body>
+
+
+<form role="form" action="" method="post" >
+
+
+
+
+
+
+<input name="theDate" size="20">
+ <input type="button" value="time" onclick="
+	 this.form.theDate.value = d.yyyymmdd();
+
+ ">
+
+
+
+</form>
+
+
+</html>

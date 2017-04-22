@@ -1,0 +1,46 @@
+
+{% load staticfiles %}
+{% load static %}
+
+<html>
+<head>
+<title>release date Search</title>
+<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+<body>
+
+<header>
+<a href="{% url 'home' %}"><button1 class="button1 button11">Home</button></a>
+  <br>
+  <br>
+</header>
+<p>搜尋發行日期</p>
+<p>You searched for: <strong>{{ query }}</strong></p>
+{% if books %}
+<p>Found {{ books|length }} product{{ books|pluralize }}.</p>
+<ul>
+{% for book in books %}
+<table style="width:90%">
+<tr>
+
+<td> {{book.model_number}} </td>
+
+<td><h2><a href="{% url 'thing_detail' slug=book.slug %}">{{ book.name }}</a></h2></td>
+
+<td>創建日: {{ book.created }}</td>
+<td>全部發行日期: {{ book.release }}</td>
+<td>台灣發行日期: {{ book.twtime }}</td>
+<td>香港發行日期: {{ book.hktime }}</td>
+<td>上海發行日期: {{ book.shtime }}</td>
+<td>日本發行日期: {{ book.jptime }}</td>
+
+
+<td>  <img src="{% if book.image %} {{ book.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" height="100" width="100"> </td>
+
+{% endfor %}
+</ul>
+{% else %}
+<p>No products matched your search criteria.</p>
+{% endif %}
+</body>
+</html>

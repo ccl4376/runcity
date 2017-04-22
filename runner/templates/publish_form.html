@@ -1,0 +1,87 @@
+
+{% load staticfiles %}
+
+<html>
+<head>
+    <title>Search release </title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+      <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+      <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+      <link rel="stylesheet" href="/resources/demos/style.css">
+      <script>
+      $(function() {
+        $( ".datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+
+
+      });
+      </script>
+<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+<body>
+  <div id="datetimepicker" class="input-append date">
+    {% if error %}
+        <p style="color: red;">Please submit a search term.</p>
+    {% endif %}
+  <form action="" method="get">
+
+
+<header>
+<a href="{% url 'home' %}"><button1 class="button1 button11">Home</button></a>
+
+</header>
+
+
+
+<table>
+  <tr>
+  <td>搜尋創建日期 <input type="text"  name="c1" class="datepicker" > </td>
+  <td style="width:15%"> between </td>
+  <td><input type="text"  name="c2" class="datepicker" ></td>
+  <br>
+  <td><input type="submit" value="Search"></td>
+  </tr>
+
+
+  <tr>
+  <td>全部發行日期 <input type="text"  name="q1" class="datepicker" > </td>
+  <td style="width:15%"> between </td>
+  <td><input type="text"  name="q2" class="datepicker" ></td>
+  <br>
+  <td><input type="submit" value="Search"></td>
+  </tr>
+
+  <tr>
+  <td>台灣發行日期 <input type="text"  name="t1" class="datepicker" > </td>
+  <td style="width:15%"> between </td>
+  <td><input type="text"  name="t2" class="datepicker" ></td>
+  <br>
+  <td><input type="submit" value="Search"></td>
+  </tr>
+
+  <tr>
+  <td>香港發行日期 <input type="text"  name="h1" class="datepicker" > </td>
+  <td style="width:15%"> between </td>
+  <td><input type="text"  name="h2" class="datepicker" ></td>
+  <br>
+  <td><input type="submit" value="Search"></td>
+  </tr>
+
+  <tr>
+  <td>上海發行日期 <input type="text"  name="s1" class="datepicker" > </td>
+  <td style="width:5%"> between </td>
+  <td><input type="text"  name="s2" class="datepicker" ></td>
+  <br>
+  <td><input type="submit" value="Search"></td>
+  </tr>
+
+  <tr>
+  <td>日本發行日期 <input type="text"  name="j1" class="datepicker" > </td>
+  <td style="width:15%"> between </td>
+  <td><input type="text"  name="j2" class="datepicker" ></td>
+  <br>
+  <td><input type="submit" value="Search"></td>
+  </tr>
+</table>
+  </form>
+</body>
+</html>

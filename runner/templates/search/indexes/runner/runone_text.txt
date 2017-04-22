@@ -1,0 +1,8 @@
+
+{{ object.name }}
+{{ object.slug }}
+{{ object.description }}
+{{ object.user }}
+{{ object.created }}
+{{ object.modified }}
+{{ object.useredit }}

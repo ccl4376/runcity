@@ -1,0 +1,63 @@
+
+{% load static %}
+{% block title %}
+
+<a href="{% url 'home' %}">Home</a> {% endblock title %}
+	<br>
+	<br>
+{% block content %}
+
+
+
+<div align="center">
+
+<h1>{{ RunHere.name }} </h1>
+創建日  : {{ RunHere.created }} 創建 : {{ RunHere.user }} 修改 : {{ RunHere.useredit }}
+
+<p> 討論  : {{ RunHere.description }} </p>
+
+
+
+ <img src="{% if RunHere.image %} {{ RunHere.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" height="100" width="100">
+
+{% for upload in uploads %}
+<img src="{{ upload.image.url }}" alt="" />
+{% endfor %}
+
+<br>
+<a href="{% url 'edit_RunDate' slug=RunHere.slug %}"> Edit me! </a>
+<br>
+<br>
+<a href="{% url 'delete_p' id=RunHere.id%}">Delete</a>
+
+{% if user.is_authenticated %}
+
+{% with comments.count as total_comments %}
+      <h2>共 {{ total_comments }} 評論 </h2>
+    {% endwith %}
+
+    {% for comment in comments %}
+            <div class="comment">
+                <p class="info">
+              {{ comment.user }}  評論 {{ forloop.counter }}   {{ comment.created }} </p>
+                {{ comment.body|linebreaks }}
+            </div>
+        {% empty %}
+            <p>There are no comments yet.</p>
+        {% endfor %}
+
+        {% if new_comment %}
+                <h2>Your comment has been added.</h2>
+            {% else %}
+                <h2>Add a new comment</h2>
+                <form action="." method="post">
+                    {{ comment_form.as_p }}
+                    {% csrf_token %}
+                    <p><input type="submit" value="Add comment"></p>
+                </form>
+            {%  endif %}
+
+{%  endif %}
+
+{% endblock content %}
+</div>

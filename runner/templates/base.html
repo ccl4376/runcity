@@ -1,0 +1,72 @@
+{% load staticfiles %}
+<!doctype html>
+
+<html>
+<head>
+<title>
+{% block title %}
+Run Date
+{% endblock title %}
+</title>
+<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+<style>
+table {
+	 position: relative;
+	 left: 100px;
+}
+</style>
+{% block header %}{% endblock header %}
+</head>
+<body>
+<header>
+<h1>Run Date</h1>
+
+<p>
+<table style="width:80%">
+<tr>
+<td><a href="{% url 'home' %}"><button class="button1 button11">Home</button></a></td>
+<td><a href="{% url 'post_search' %}"><button class="button1 button11">站內搜尋</button></a></td>
+
+{% if user.is_authenticated %}
+<td>
+<a href="{% url 'auth_logout' %}"><button class="button1 button11">Logout</button></a>
+</td>
+
+<td>
+<a href="{% url 'edit' %}"><button class="button1 button11">我的</button></a>
+</td>
+
+<td>
+<a href="{% url 'create_RunDate' %}"><button class="button1 button11">約跑</button></a>
+</td>
+{% else %}
+<td>
+<a href="{% url 'auth_login' %}"><button class="button1 button11">Login</button></a> </td>
+<td>
+<a href="{% url 'registration_register' %}"><button class="button1 button11">Register</button></a>
+</td>
+{% endif %}
+</tr>
+</header>
+
+{% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+              <li class="{{ message.tags }}">
+                  {{ message|safe }}
+                  <a href="#" class="close"></a>
+              </li>
+          {% endfor %}
+      </ul>
+  {% endif %}
+
+
+    </p>
+
+{% block content %}{% endblock content %}
+{% block footer %}{% endblock footer %}
+
+</div>
+
+</body>
+</html>

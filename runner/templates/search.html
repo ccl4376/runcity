@@ -1,0 +1,87 @@
+
+{% load staticfiles %}
+{% load static %}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<div align="center">
+
+
+<a href="{% url 'home' %}"><button1 class="button1 button11">Home</button></a>
+
+
+
+<p>
+
+{% block title %}Search{% endblock %}
+
+{% block content %}
+
+
+<script>
+
+$(document).ready(function (){
+    validate();
+    $('#id_query').change(validate);
+});
+
+function validate(){
+    if (
+        $('#id_query').val().length  >   0 )
+        {
+        $("input[type=submit]").prop("disabled", false);
+    }
+    else {
+        $("input[type=submit]").prop("disabled", true);
+    }
+}
+</script>
+
+<html lang="zh-tw">
+	<head>
+	<meta charset="UTF-8"/>
+
+
+    {% if "query" in request.GET %}
+        <h1>Posts containing "{{ cd.query }}"</h1>
+        <h3>Found {{ total_results }} result{{ total_results|pluralize }}</h3>
+        {% for result in results %}
+        	{% with post=result.object %}
+            <table style="width:90%">
+            <tr>
+
+            <td> {{post.name}} </td>
+
+            <td><h2><a href="{% url 'RunHere_detail' slug=post.slug %}">{{ post.name }}</a></h2></td>
+
+            <td>創建日: {{ post.created }}</td>
+
+
+
+            <td>  <img src="{% if post.image %} {{ post.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" height="100" width="100"> </td>
+            </tr>
+          </table>
+                {{ post.body|truncatewords:5 }}
+        	{% endwith %}
+        {% empty %}
+        	<p>找不到喔 ＾＾.</p>
+        {% endfor %}
+        <p><a href="{% url "post_search" %}">搜索</a></p>
+    {% else %}
+        <h1>站內搜索</h1>
+        <p>要輸入文字才能搜喔</p>
+        <form action="." method="get">
+            {{ form.as_p }}
+            <input type="submit" value="Search">
+        </form>
+    {% endif %}
+
+
+
+{% endblock %}
+
+</div>
+
+</html>
